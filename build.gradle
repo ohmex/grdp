@@ -8,10 +8,10 @@ plugins {
 group 'com.github.ohmex.grdp'
 version '0.0.1'
 
-/* publish to local maven repo for testing : Use command : ./gradlew publish to build
+/* publish to local maven repo for testing : Use command : ./gradlew publish
 Usage in Target Project as below
 
-Iside : build.gradle
+Inside : build.gradle
 
 plugins {
     id 'java'
@@ -91,5 +91,5 @@ repositories{
 dependencies {
     compile 'org.tmatesoft.svnkit:svnkit:1.9.2'
     compile 'org.ajoberstar:grgit:1.9.3'
-    compile 'org.eclipse.jgit:org.eclipse.jgit:5.4.0.201906121030-r'
+    compile 'org.eclipse.jgit:org.eclipse.jgit:4.9.10.201904181027-r'
 }

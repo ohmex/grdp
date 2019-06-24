@@ -87,10 +87,11 @@ class GitHelper {
 
     private static void switchToVersion(Grgit git, String commit) {
         //git.checkout(branch: commit)
+        println "Git checkout started for commit=origin/${commit}"
         if(git.branch.list().find { it.name == commit })
             git.checkout(branch: commit)
         else
-            git.checkout(branch: commit, startPoint: "'origin/'${commit}", createBranch: true)
+            git.checkout(branch: commit, startPoint: "origin/${commit}", createBranch: true)
     }
 
     private static Credentials getCreds(GitDependency repo) {
