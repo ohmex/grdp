@@ -1,0 +1,95 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.10.1' 
+}
+
+group 'com.github.ohmex.grdp'
+version '0.0.1'
+
+/* publish to local maven repo for testing : Use command : ./gradlew publish to build
+Usage in Target Project as below
+
+Iside : build.gradle
+
+plugins {
+    id 'java'
+    // import/apply your custom plugin
+    id 'org.gradle.sample.plugin.myplugin' version '0.1'
+}
+
+group 'org.gradle.sample.plugin'
+version '0.1'
+
+repositories{
+    maven {
+        url "../repos/maven-repo"
+     }
+    jcenter()
+}
+ */
+
+publishing {
+    repositories {
+        maven {
+            url "../maven-repo"
+        }
+    }
+}
+
+/*
+https://guides.gradle.org/publishing-plugins-to-gradle-plugin-portal/
+Publish the plugin to https://plugins.gradle.org/
+
+./gradlew publishPlugins
+
+Consume https://plugins.gradle.org/plugin/org.example.greeting
+
+plugins {
+  id "org.example.greeting" version "1.2"
+}
+
+or 
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.org.example.greeting:greeting-plugin-example:1.0"
+  }
+}
+
+apply plugin: "org.example.greeting"
+*/
+pluginBundle {
+    website = 'https://github.com/ohmex/grdp'
+    vcsUrl = 'https://github.com/ohmex/grdp.git'
+    tags = ['dependency', 'plugin', 'source']
+}
+
+gradlePlugin {
+    plugins {
+        gradletestPlugin {
+            id = 'com.github.ohmex.grdp'
+            displayName = 'Plugin for source dependency'
+            description = 'A plugin that helps your app build with source as subproject'
+            implementationClass = 'com.github.ohmex.grdp.VcsSettingsPlugin'
+        }
+    }
+}
+
+//  repo for dependences resolution
+repositories{
+    jcenter()
+}
+
+// dependencies of this plugin 
+dependencies {
+    compile 'org.tmatesoft.svnkit:svnkit:1.9.2'
+    compile 'org.ajoberstar:grgit:1.9.3'
+    compile 'org.eclipse.jgit:org.eclipse.jgit:5.4.0.201906121030-r'
+}
