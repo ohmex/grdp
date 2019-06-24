@@ -12,7 +12,7 @@ In `settings.gradle` file add the following lines:
             jcenter()
         }
         dependencies {
-            classpath 'io.github.ohmex:grdp:1.1.2'
+            classpath 'io.github.ohmex:grdp:0.0.2'
         }
     }
 
@@ -62,7 +62,7 @@ Note, that using 'master' as git commit or 'HEAD' as svn revision is not recomme
 
     def vcs() {
         git name: 'GestureViews',
-                url: 'https://github.com/ohmex/GestureViews.git',
+                url: 'https://github.com/ohmex/abc.git',
                 commit: 'v2.5.1',
                 path: '/library',
                 noAuth: true
