@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'com.github.ohmex.grdp'
-version '0.0.2'
+version '0.0.4'
 
 /* publish to local maven repo for testing : Use command : ./gradlew publish
 Usage in Target Project as below

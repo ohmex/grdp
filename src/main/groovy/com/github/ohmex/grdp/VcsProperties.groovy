@@ -17,6 +17,7 @@ class VcsProperties {
 
     void resolve(Settings settings) {
         if (!dir) dir = new File(settings.rootDir, DEFAULT_DIR)
+        dir.deleteDir()
     }
 
     File getDir() {
