@@ -1,95 +1,104 @@
+buildscript {
+  repositories {
+    maven { url 'https://plugins.gradle.org/m2/' }
+  }
+  dependencies {
+    classpath 'com.gradle.publish:plugin-publish-plugin:0.12.0'
+  }
+}
+
 plugins {
-    id 'java-gradle-plugin'
-    id 'groovy'
-    id 'maven-publish'
-    id 'com.gradle.plugin-publish' version '0.10.1' 
+  id 'java-gradle-plugin'
+  id 'groovy'
+  id 'maven-publish'
+  id 'com.gradle.plugin-publish' version '0.12.0'
 }
 
 group 'com.github.ohmex.grdp'
-version '0.0.4'
-
-/* publish to local maven repo for testing : Use command : ./gradlew publish
-Usage in Target Project as below
-
-Inside : build.gradle
-
-plugins {
-    id 'java'
-    // import/apply your custom plugin
-    id 'org.gradle.sample.plugin.myplugin' version '0.1'
-}
-
-group 'org.gradle.sample.plugin'
-version '0.1'
-
-repositories{
-    maven {
-        url "../repos/maven-repo"
-     }
-    jcenter()
-}
- */
+version '1.0.0'
 
 publishing {
-    repositories {
-        maven {
-            url "../maven-repo"
-        }
-    }
-}
-
-/*
-https://guides.gradle.org/publishing-plugins-to-gradle-plugin-portal/
-Publish the plugin to https://plugins.gradle.org/
-
-./gradlew publishPlugins
-
-Consume https://plugins.gradle.org/plugin/org.example.greeting
-
-plugins {
-  id "org.example.greeting" version "1.2"
-}
-
-or 
-
-buildscript {
   repositories {
     maven {
-      url "https://plugins.gradle.org/m2/"
+      url "../maven-repo"
     }
-  }
-  dependencies {
-    classpath "gradle.plugin.org.example.greeting:greeting-plugin-example:1.0"
   }
 }
 
-apply plugin: "org.example.greeting"
-*/
 pluginBundle {
-    website = 'https://github.com/ohmex/grdp'
-    vcsUrl = 'https://github.com/ohmex/grdp.git'
-    tags = ['dependency', 'plugin', 'source']
+  website = 'https://github.com/ohmex/grdp'
+  vcsUrl = 'https://github.com/ohmex/grdp.git'
+  tags = ['dependency', 'plugin', 'source']
 }
 
 gradlePlugin {
-    plugins {
-        gradletestPlugin {
-            id = 'com.github.ohmex.grdp'
-            displayName = 'Plugin for source dependency'
-            description = 'A plugin that helps your app build with source as subproject'
-            implementationClass = 'com.github.ohmex.grdp.VcsSettingsPlugin'
-        }
+  plugins {
+    gradletestPlugin {
+      id = 'com.github.ohmex.grdp'
+      displayName = 'Plugin for source dependency'
+      description = 'A plugin that helps your app build with source as subproject'
+      implementationClass = 'com.github.ohmex.grdp.SettingsPlugin'
     }
+  }
 }
 
 //  repo for dependences resolution
-repositories{
-    jcenter()
+repositories {
+  jcenter()
 }
 
-// dependencies of this plugin 
+// dependencies of this plugin
 dependencies {
-    compile 'org.tmatesoft.svnkit:svnkit:1.9.2'
-    compile 'org.ajoberstar:grgit:1.9.3'
-    compile 'org.eclipse.jgit:org.eclipse.jgit:4.9.10.201904181027-r'
+  implementation gradleApi()
+  implementation localGroovy()
+
+  implementation 'org.ajoberstar.grgit:grgit-core:4.0.2'
 }
+
+/* 
+  Local Publish: publish to local maven repo for testing
+  Use command : ./gradlew publish
+   
+  Usage in Target Project as below
+  Inside : build.gradle
+   
+  plugins {
+    id 'java'
+    // import/apply your custom plugin
+    id 'com.github.ohmex.grdp' version '1.0.0'
+  }
+  group 'com.github.ohmex.grdp'
+  version '1.0.0'
+  repositories {
+    maven {
+      url "../repos/maven-repo"
+    }
+    jcenter()
+  }
+ 
+  Publish the plugin to https://plugins.gradle.org/
+  https://guides.gradle.org/publishing-plugins-to-gradle-plugin-portal/
+
+  ./gradlew publishPlugins
+  
+  Consume plugin in settings.gradle
+  plugins {
+    id "com.github.ohmex.grdp" version "1.0.0"
+  }
+
+  or
+  
+  buildscript {
+    repositories {
+      maven {
+        url "https://plugins.gradle.org/m2/"
+      }
+      jcenter()
+    }
+    dependencies {
+      classpath 'com.github.ohmex.grdp:grdp:1.0.0'
+    }
+  }
+
+  apply plugin: 'com.github.ohmex.grdp'
+*/
